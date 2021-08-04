@@ -1,5 +1,5 @@
-from stdnum.at import uid
-from stdnum.cr import cr
+# from stdnum.at import uid
+# from stdnum.cr import cr
 
 from odoo import models, fields, api, _
 
