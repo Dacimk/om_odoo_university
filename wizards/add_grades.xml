@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    <record id="add_grades_form" model="ir.ui.view">-->
+<!--        <field name="name">add.grades.wizard</field>-->
+<!--        <field name="model">add.grades</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="Add Grades">-->
+<!--                <group>-->
+<!--                    <field name="ucenik_id"/>-->
+<!--                    <field name="grade"/>-->
+<!--                </group>-->
+<!--                <footer>-->
+<!--                    <button id="button_grades" name="add_grades" string="Add Grade" type="object" class="btn-primary"/>-->
+<!--                    <button string="Cancel" class="btn-secondary" special="cancel"/>-->
+<!--                </footer>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="add_grades_wizard" model="ir.actions.act_window">-->
+<!--        <field name="name">Add Grades</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">add.grades</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="view_id" ref="add_grades_form"/>-->
+<!--        <field name="target">new</field>-->
+<!--    </record>-->
+
+</odoo>

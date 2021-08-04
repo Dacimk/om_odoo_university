@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+{
+    'name' : 'ODOO University',
+    'version' : '1.0',
+    'summary': 'University Software',
+    'sequence': -1001,
+    'description': """Course, Teacher, and Student Management""",
+    'category': 'Human Resources',
+    'website': '',
+    'license':'LGPL-3',
+    'images' : [],
+    'depends' : ['website',
+                 'mail'],
+    'data': [
+        'security/ir.model.access.csv',
+        'security/security.xml',
+        'wizards/add_grades.xml',
+        'views/courses.xml',
+        'views/teacher.xml',
+        'data/data.xml',
+        'views/student.xml',
+        'views/template.xml',
+        'reports/course_report.xml',
+        'reports/student_report.xml',
+        'reports/reports.xml',
+    ],
+    'demo': [],
+    'qweb': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

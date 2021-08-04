@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="menu_student_form" model="website.menu">
+        <field name="name">My Profile</field>
+        <field name="url">/student/</field>
+        <field name="parent_id" ref="website.main_menu"/>
+    </record>
+
+    <template id="students_page" name="University Student">
+        <t t-call="website.layout">
+            <div class="container">
+                <p></p>
+                <!--                <p t-if="state == 'done'">State e Done</p>-->
+                <!--                <p t-if="state == 'edit'">State e Edit</p>-->
+                <strong><t t-esc="target_student.reference"/></strong>
+                <form action="/student_save_changes" method="post" data-success_page="/student/"
+                      class="s_website_form form-horizontal container-fluid mt32" >
+                    <table class="table table-sm o_main_table">
+                        <tr>
+                            <td>Student Name:
+                                <t t-if="state == 'edit'">
+                                    <div class="form-group" attrs="{'invisible':[('state', '==', 'done')]}">
+                                        <input type="text" name="name" t-att-value="student_name" id="student_name"
+                                               class="form-control" required="required">
+                                            <!-- context="{'default':'Kire'}"-->
+                                            <!-- Default kako se postavuva?-->
+                                        </input>
+                                    </div>
+                                </t>
+                                <t t-elif="state == 'done'">
+                                    <t t-esc="target_student.name"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Student Surname:
+                                <t t-if="state == 'edit'">
+                                    <div class="form-group" attrs="{'invisible':[('state', '==', 'done')]}">
+                                        <input type="text" name="surname" t-att-value="student_surname" id="student_surname"
+                                               class="form-control" required="required"/>
+                                    </div>
+                                </t>
+                                <t t-elif="state == 'done'">
+                                    <t t-esc="target_student.surname"/>
+                                </t>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>Student Email:
+                                <t t-if="state == 'edit'">
+                                    <div class="form-group" attrs="{'invisible':[('state', '==', 'done')]}">
+                                        <input type="text" name="email" t-att-value="student_email" id="student_email"
+                                               class="form-control" required="required"/>
+                                    </div>
+                                </t>
+                                <t t-elif="state == 'done'">
+                                    <t t-esc="target_student.email"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Year Enrolled:
+                                <t t-if="state == 'edit'">
+                                    <div class="form-group" attrs="{'invisible':[('state', '==', 'done')]}">
+                                        <input type="text" name="year" t-att-value="student_year" id="student_year"
+                                               class="form-control" required="required"/>
+                                    </div>
+                                </t>
+                                <t t-elif="state == 'done'">
+                                    <t t-esc="target_student.year"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Birthday:
+                                <t t-if="state == 'edit'">
+                                    <div class="form-group" attrs="{'invisible':[('state', '==', 'done')]}">
+                                        <input type="date" name="bday" t-att-value="student_bday" id="student_bday"
+                                               class="form-control" required="required"/>
+                                    </div>
+                                </t>
+                                <t t-elif="state == 'done'">
+                                    <t t-esc="target_student.bday"/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Field of Study:
+                                <t t-if="state == 'edit'">
+                                    <div class="form-group" attrs="{'invisible':[('state', '==', 'done')]}">
+                                        <input type="text" name="study" t-att-value="student_study" id="student_study"
+                                               class="form-control" required="required"/>
+                                    </div>
+                                </t>
+                                <t t-elif="state == 'done'">
+                                    <t t-esc="target_student.study"/>
+                                </t>
+                            </td>
+                        </tr>
+                    </table>
+                    <t t-if="state == 'edit'">
+                        <div class="form-group" attrs="{'invisible':[('state', '==', 'done')]}">
+                            <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                                <!--                                <span id='submit' class="btn btn-primary btn-lg o_website_form_send">Submit</span>-->
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <span id="o_website_form_result"></span>
+                            </div>
+                        </div>
+                    </t>
+                </form>
+                <hr></hr>
+                <strong>Courses Enrolled: </strong><t t-foreach="target_student.course_ids" t-as="courses">
+                <t t-esc="courses.name"/>,
+            </t>
+                <!--                                <div class="form-group">-->
+                <!--                                    <label for="student_name" class="control-label">Name</label>-->
+                <!--                                    <input type="text" name="student_name" t-att-value="student_name" id="student_name"-->
+                <!--                                           class="form-control" required="required"/>-->
+                <!--                                </div>-->
+                <p style="margin-bottom: 2.5em"></p>
+                <div class="clearfix_oe_login_buttons">
+                    <t t-if="state == 'done'">
+                        <form action="/student/editing" method="post" attrs="{'invisible':[('state', '==', 'edit')]}">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <!-- put other forms field here if you need to pass info to controller -->
+                            <button type="submit" class="btn btn-primary pull-left"> Edit Profile </button>
+                        </form>
+                    </t>
+                    <t t-if="state == 'edit'">
+                        <form action="/student/" method="post" attrs="{'invisible':[('state', '==', 'done')]}">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <!-- put other forms field here if you need to pass info to controller -->
+                            <button type="submit" class="btn btn-primary pull-left"> Back </button>
+                        </form>
+                    </t>
+                    <form action="/student/print" method="post">
+                        <a t-attf-href="/reports/pdf/reports.report_student/%s' % target_student.id">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <button type="submit" class="btn btn-primary pull-right"> Print Grades </button>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="students_page_courses" name="Student Courses">
+        <t t-call="website.layout">
+            <div class="container">
+                <t t-foreach="target_student.course_ids" t-as="course">
+                    <div class="column">
+                        <table>
+                            <th>
+                                <t t-esc="course.name"/>
+                            </th>
+                            <tr>
+                                <td>
+                                    <t t-esc="course.field"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <t t-esc="course.teacher_id.name"/>
+                                </td>
+                            </tr>
+                            <t t-if="course.documents">
+                                <tr>
+                                    <td>
+                                        Documents:
+                                        <t t-foreach="course.documents" t-as="document">
+                                            <a t-attf-href="/web/content/#{document.id}?download=true&amp;access_token=#{document.access_token}">
+                                                <span t-esc="document.name" class="fa fa-download"/>
+                                            </a>
+<!--                                            <t t-esc="document.name"/>-->
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </t>
+
+    </template>
+</odoo>
